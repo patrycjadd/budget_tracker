@@ -20,8 +20,6 @@ public class TransactionViewModel extends AndroidViewModel {
     private Double sumOfIncomes;
     private Double sumOfExpenses;
     private LiveData<List<TransactionEntity>> transactionList;
-    private LiveData<List<TransactionEntity>> incomeListGroupedByMonth;
-    private LiveData<List<TransactionEntity>> expenseListGroupedByMonth;
     private LiveData<List<TransactionEntity>> incomesAndExpenseListGroupedByMonth;
     private LiveData<List<CategoryEntity>> categoriesList;
 
@@ -33,8 +31,6 @@ public class TransactionViewModel extends AndroidViewModel {
         sumOfIncomes = transactionRepository.getSumOfIncomes();
         sumOfExpenses = transactionRepository.getSumOfExpenses();
         transactionList = transactionRepository.getAllTransactions();
-//        incomeListGroupedByMonth = transactionRepository.getAllIncomesGroupedByMonth();
-//        expenseListGroupedByMonth = transactionRepository.getAllExpensesGroupedByMonth();
         incomesAndExpenseListGroupedByMonth = transactionRepository.getAllIncomesExpensesGroupedByMonth();
         categoriesList = categoryRepository.getAllCategories();
     }
@@ -63,26 +59,11 @@ public class TransactionViewModel extends AndroidViewModel {
         return transactionList;
     }
 
-//    public LiveData<List<TransactionEntity>> getAllTransactionsGroupedByDays() throws ExecutionException, InterruptedException {
-//        if (incomeListGroupedByDays == null) {
-//            incomeListGroupedByDays = transactionRepository.getAllTransactionsGroupedByDays();
-//        }
-//        return incomeListGroupedByDays;
-//    }
-
     public LiveData<List<CategoryEntity>> getAllCategories() {
         if(categoriesList == null) {
             categoriesList = categoryRepository.getAllCategories();
         }
         return categoriesList;
-    }
-
-    public LiveData<List<TransactionEntity>> getIncomeListGroupedByMonth() {
-        return incomeListGroupedByMonth;
-    }
-
-    public LiveData<List<TransactionEntity>> getExpenseListGroupedByMonth() {
-        return expenseListGroupedByMonth;
     }
 
     public LiveData<List<TransactionEntity>> getIncomesAndExpenseListGroupedByMonth() {

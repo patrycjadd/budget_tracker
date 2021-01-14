@@ -3,8 +3,6 @@ package com.example.budgettracker.view;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,7 +16,6 @@ import com.anychart.chart.common.dataentry.ValueDataEntry;
 import com.example.budgettracker.R;
 import com.example.budgettracker.chart.BudgetBarChart;
 import com.example.budgettracker.model.CategoryEntity;
-import com.example.budgettracker.repository.CategoryRepository;
 import com.example.budgettracker.repository.TransactionRepository;
 import com.example.budgettracker.viewmodel.TransactionViewModel;
 import com.google.android.gms.common.api.CommonStatusCodes;
@@ -129,28 +126,20 @@ public class MainActivity extends AppCompatActivity {
             if (resultCode == CommonStatusCodes.SUCCESS) {
                 if (data != null) {
                     String text = data.getStringExtra(OcrCaptureActivity.TextBlockObject);
-                    Log.i("value", text);
                     String replace = text.replace("PLN", "").replace(" ", "");
                     String newRep = replace.replace(",", ".");
-                    Log.i("value", newRep);
-
-//                    transactionViewModel.insert(new Transaction(Double.parseDouble(text), TimeHelper.getActualDate(),1));
                     try{dialog.showDialog(categoriesList, Double.parseDouble(newRep), false);}
                     catch (NumberFormatException e){
-                        Log.i("exepszionek", e.toString());
                         Toast.makeText(this.getApplicationContext(), "You can only scan numbers. Try again.", Toast.LENGTH_LONG).show();
                     }
 
-//                    statusMessage.setText(R.string.ocr_success);
-//                    textValue.setText(text);
-//                    Log.d(TAG, "Text read: " + text);
                 } else {
-//                    statusMessage.setText(R.string.ocr_failure);
-//                    Log.d(TAG, "No Text captured, intent data is null");
+                    Toast.makeText(this.getApplicationContext(), "Error.", Toast.LENGTH_LONG).show();
+
                 }
             } else {
-//                statusMessage.setText(String.format(getString(R.string.ocr_error),
-//                        CommonStatusCodes.getStatusCodeString(resultCode)));
+                Toast.makeText(this.getApplicationContext(), "Error.", Toast.LENGTH_LONG).show();
+
             }
         }
         else {
